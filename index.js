@@ -21,12 +21,12 @@ app.use(cors());
 
  app.use(express.json());
 
- 
 
  const client = require("./db/client")
  client.connect();
 
  app.use('/api', require('./api'))
+
  
  app.listen(PORT, () => {
     console.log(`We are now connected to port ${PORT}.`)
