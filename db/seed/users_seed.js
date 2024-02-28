@@ -38,3 +38,7 @@ module.exports = build_user_table;
 
 //? user_status VARCHAR(255) DEFAULT "active"
 //! for growth not important now
+
+//? account_expiration_date
+// maybe add this so we could create payed plans. 
+// maybe an add free mode they could pay for

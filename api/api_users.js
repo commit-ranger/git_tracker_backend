@@ -48,4 +48,15 @@ usersRouter.post("/register", async (req, res) => {
 
 
   //TODO: PULL ALL USERS
-usersRouter.get("get_all_users", async ()=> get_all_users())
+usersRouter.get("/get_all_users", async (req, res)=> {
+  // res.send(get_all_users())
+  const all_users = await get_all_users()
+    res.send(all_users)
+    
+
+
+
+})
+
+
+module.exports = usersRouter

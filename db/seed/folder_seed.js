@@ -12,13 +12,15 @@ async function build_folder_table(){
         await client.query(`
         CREATE TABLE folder(
             folder_id SERIAL PRIMARY KEY,
+            title VARCHAR(255) DEFAULT 'Folder Name',
             repo_id TEXT,
-            title VARCHAR(255),
-            notes TEXT DEFAULT "insert notes here"
+            file_container TEXT[] DEFAULT ARRAY[]::TEXT[],
+            description TEXT DEFAULT 'enter description here',
+            notes TEXT DEFAULT 'insert notes here'
         )
         `)
     } catch (error) {
-        console.log("error creating file table db/seed/file_seed.js", error)
+        console.log("error creating folder table db/seed/folder_seed.js", error)
     }
 }
 
@@ -32,6 +34,9 @@ module.exports = build_folder_table
 
 //? title VARCHAR(255),
 //      Title of the folder
+
+//? description TEXT DEFAULT "enter description here"
+
 
 //? notes TEXT DEFAULT "insert notes here"
 //!         eventual expandability
