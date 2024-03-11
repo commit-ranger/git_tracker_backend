@@ -7,6 +7,7 @@ const { get_all_repos, find_repo_by_title, find_repo_by_id } = require("../funct
 // create repo --> create folder(main) --> create files
 
 repo_router.get("/get_entire_repo", async (req, res)=>{
+        //important NOT CURRENTLY OPTIMAL
         // pull folders and repo maybe organized into objects 
 })
 

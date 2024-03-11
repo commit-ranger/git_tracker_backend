@@ -1,6 +1,6 @@
 const client = require("../../db/client");
 
-async function create_folder(){
+async function create_folder(repo_id){
 
     try {
         const { rows } = await client.query(
@@ -10,9 +10,11 @@ async function create_folder(){
             RETURNING *;`,
           [repo_id]
         );
-        console.log("repo created");
+        console.log("folder created");
         return rows;
       } catch (error) {
-        console.log("ERROR CREATING NEW REPO", error)
+        console.log("ERROR CREATING NEW FOLDER", error)
       }
 }
+
+module.exports = create_folder

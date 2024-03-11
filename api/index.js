@@ -15,6 +15,7 @@ router.get('/health', (request, response)=>{
 // repo folders files users.... Open for a change if there is a better way to organize (EX create, delete, modify, etc)
 router.use('/users', require("./api_users.js"))
 router.use("/repo", require("./api_repo.js"))
+router.use("/folder", require("./api_folder.js"))
 
 
 

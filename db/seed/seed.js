@@ -7,6 +7,8 @@ const build_file_table = require("./file_seed")
 const build_folder_table = require("./folder_seed")
 const build_repo_table = require("./repo_seed")
 const build_user_table = require("./users_seed")
+const fill_db_with_folders = require("./filler_data/folder_seed_data")
+const fill_db_with_file = require("./filler_data/file_seed_data")
 
 
 async function initiate_database(){
@@ -18,6 +20,8 @@ async function initiate_database(){
         console.log("finished creating the database")
         await fill_db_with_users()
         await fill_db_with_repos()
+        await fill_db_with_folders()
+        await fill_db_with_file()
         
     } catch (error) {
         console.log("seed.js error", error)
