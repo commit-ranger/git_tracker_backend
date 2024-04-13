@@ -10,7 +10,6 @@ async function find_folder_by_repo_id(repo_id) {
           `,
         [repo_id]
       );
-      console.log(rows)
       return rows;
     } catch (error) {
       console.log("find folder by repo_id ERROR  function/folder/find_folder.js", error);

@@ -9,9 +9,8 @@ async function find_user_by_username(userNameValue) {
             SELECT * FROM users
             WHERE "username" = $1;
         `,
-      [userNameValue]
+      [userNameValue] 
     );
-
     return rows[0];
   } catch (error) {
     console.log("userFinderByUsername ERROR", error);

@@ -1,4 +1,6 @@
 const client = require("../../db/client");
+const passwordHasher = require("./passwordHasher");
+const bcrypt = require("bcrypt");
 
 async function create_user({
   username,
@@ -8,13 +10,17 @@ async function create_user({
   email,
   phone
 }) {
+
+  const saltRound = await bcrypt.genSalt(8)
+  const myHashedPassword = await bcrypt.hash(password, saltRound)
+  console.log("###", myHashedPassword)
   try {
     const { rows } = await client.query(
       `
       INSERT INTO users(username, password, first_name, last_name, email, phone)
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;`,
-      [username, password, first_name, last_name, email, phone]
+      [username, myHashedPassword, first_name, last_name, email, phone]
     );
     console.log("user created");
     return rows;

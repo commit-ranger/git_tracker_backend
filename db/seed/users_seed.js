@@ -14,13 +14,14 @@ async function build_user_table() {
             user_id SERIAL PRIMARY KEY,
             repo_list TEXT[] DEFAULT ARRAY[]::TEXT[],
             username VARCHAR(255),
-            password VARCHAR(50),
+            password VARCHAR(255),
             first_name VARCHAR(250),
             last_name VARCHAR(250),
             email VARCHAR(255),
-            phone VARCHAR(255),
+            phone VARCHAR(255) DEFAULT '(111)111-1111',
             is_super_admin BOOLEAN DEFAULT false,
-            user_status VARCHAR(255) DEFAULT 'active'
+            user_status VARCHAR(255) DEFAULT 'active',
+            groups TEXT[] DEFAULT ARRAY[]::TEXT[]
         )
         `);
     //  TEXT[] = an array of text

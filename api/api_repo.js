@@ -2,13 +2,23 @@ const express = require("express");
 const repo_router = express.Router();
 const jwt = require("jsonwebtoken");
 const { get_all_repos, find_repo_by_title, find_repo_by_id } = require("../functions/repo/find_repo");
+const find_folder_by_repo_id = require("../functions/Folder/find_folder");
+const find_file_by_repo_id = require("../functions/file/find_file");
 
 // for creating a new repo 
 // create repo --> create folder(main) --> create files
 
-repo_router.get("/get_entire_repo", async (req, res)=>{
-        //important NOT CURRENTLY OPTIMAL
+repo_router.post("/get_entire_repo", async (req, res)=>{
+
         // pull folders and repo maybe organized into objects 
+       const repo_id = req.body.id
+
+       const repo = await find_repo_by_id(repo_id)
+       const folders = await find_folder_by_repo_id(repo_id)
+       const files = await find_file_by_repo_id(repo_id) 
+
+
+       res.send([repo, folders, files])
 })
 
 

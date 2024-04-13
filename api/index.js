@@ -16,6 +16,7 @@ router.get('/health', (request, response)=>{
 router.use('/users', require("./api_users.js"))
 router.use("/repo", require("./api_repo.js"))
 router.use("/folder", require("./api_folder.js"))
+router.use("/file", require("./api_file.js"))
 
 
 

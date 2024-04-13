@@ -1,5 +1,9 @@
 const client = require("../client");
 
+//IMPORTANT 
+// AN ERROR POPS UP WHEN I RUN THE SEED BUT THE TABLE IS MADE AND EVERUTHING WORKS
+// I CANT FIGURE OUT THE PROBLEM SO THIS MIGHT NEVER GET FIXED.
+
 async function build_repo_table() {
   try {
     await client.query(`
@@ -13,15 +17,13 @@ async function build_repo_table() {
     CREATE TABLE repo (
       repo_id SERIAL PRIMARY KEY,
       title VARCHAR(255) UNIQUE,
-      description TEXT DEFAULT 'enter description here',
+      repo_info TEXT DEFAULT 'enter info here',
       creator_id INTEGER DEFAULT 1,
       allowed_user TEXT[] DEFAULT ARRAY[]::TEXT[],
-      account_admin TEXT[] DEFAULT ARRAY[]::TEXT[],
-      can_modify JSONB[] DEFAULT ARRAY['{}', '{}']::JSONB[],
+      connected_groups TEXT[] DEFAULT ARRAY[]::TEXT[],
       repo_about JSONB DEFAULT '{"creator_name": "enter name", "date_created": "1/1/2000", "description": "enter description here"}',
       repo_active BOOLEAN DEFAULT true,
-      is_public BOOLEAN DEFAULT false,
-      sections INTEGER DEFAULT 3
+      is_public BOOLEAN DEFAULT false
   );
   
         `);
@@ -32,7 +34,6 @@ async function build_repo_table() {
 
 module.exports = build_repo_table;
 
-//! TO CREATE ONLY NECESSARY FILED IS TITLE
 
 //? KEY FROM CREATE TABLE
 //! FEATURE TO ADD
@@ -43,9 +44,6 @@ module.exports = build_repo_table;
 
 //? allowed_user TEXT[] DEFAULT ARRAY[]::TEXT[],
 //      TEXT[] = ARRAY OF TEXT || DEFAULT ARRAY[]::TEXT[] = DEFALT IS ARRAY OF TEXT
-
-//? account_admin TEXT[] DEFAULT ARRAY[]::TEXT[],
-//      the admin is going to be an array to allow for multiple admins and changing of admins on large projects
 
 //? can_modify JSONB[] DEFAULT ARRAY['{}', '{}']::JSONB[],
 //      objects in arrays needs to be stored as JSONB objects

@@ -1,14 +1,14 @@
 const client = require("../../db/client");
 
-async function create_folder(repo_id){
+async function create_folder(repo_id, parent_folder_id){
 
     try {
         const { rows } = await client.query(
           `
-            INSERT INTO folder (repo_id)
-            VALUES ($1)
-            RETURNING *;`,
-          [repo_id]
+          INSERT INTO folder (repo_id, parent_folder_id)
+          VALUES ($1, $2)
+          RETURNING *;`,
+          [repo_id, parent_folder_id]
         );
         console.log("folder created");
         return rows;

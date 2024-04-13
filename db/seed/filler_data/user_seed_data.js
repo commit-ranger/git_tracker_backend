@@ -5,7 +5,7 @@ async function fill_db_with_users() {
     await create_user({
       firstName: "Aldolfo",
       lastName: "Freddy",
-      username: "aldofreddy",
+      username: "test",
       password: "AldoFreddy@123",
       email: "aldolfo.freddy@example.com",
       phone: "(123)456-7891",
@@ -15,7 +15,7 @@ async function fill_db_with_users() {
       firstName: "Maria",
       lastName: "Gonzalez",
       username: "mariagonzalez",
-      password: "MariaGonz@456",
+      password: "test",
       email: "maria.gonzalez@example.com",
       phone: "(234) 567-8912",
     });
@@ -23,7 +23,7 @@ async function fill_db_with_users() {
       firstName: "John",
       lastName: "Doe",
       username: "johndoe",
-      password: "JohnDoe@789",
+      password: "test",
       email: "john.doe@example.com",
       phone: "(345) 678-9123",
     });
@@ -32,7 +32,7 @@ async function fill_db_with_users() {
       firstName: "Emily",
       lastName: "Smith",
       username: "emilysmith",
-      password: "EmilySmi!th@101",
+      password: "test",
       email: "emily.smith@example.com",
       phone: "(456) 789-1234",
     });
@@ -41,7 +41,7 @@ async function fill_db_with_users() {
       firstName: "Michael",
       lastName: "Johnson",
       username: "michaeljohnson",
-      password: "M1chaelJ0hn@202",
+      password: "test",
       email: "michael.johnson@example.com",
       phone: "(567) 891-2345",
     });

@@ -10,7 +10,6 @@ async function find_file_by_repo_id(repo_id) {
           `,
         [repo_id]
       );
-      console.log("files sent", rows[0])
       return rows;
     } catch (error) {
       console.log("find file by repo_id ERROR  function/file/find_file.js", error);

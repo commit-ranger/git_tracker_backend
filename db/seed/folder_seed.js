@@ -12,9 +12,10 @@ async function build_folder_table(){
         await client.query(`
         CREATE TABLE folder(
             folder_id SERIAL PRIMARY KEY,
+            parent_folder_id TEXT,
+            is_main_folder BOOLEAN DEFAULT false,
             title VARCHAR(255) DEFAULT 'New Folder',
             repo_id TEXT,
-            file_container TEXT[] DEFAULT ARRAY[]::TEXT[],
             description TEXT DEFAULT 'enter description here',
             notes TEXT DEFAULT 'insert notes here'
         )
@@ -32,10 +33,6 @@ module.exports = build_folder_table
 //? repo_id TEXT,
 //      Connection to the host repo
 
-//? file_container TEXT[] DEFAULT ARRAY[]::TEXT[],
-//important 
-// I don't think this is the most efficient way to do this, it requres multiple api pulls for one page to load, but i couldnt figure out how to make it all pull in one pull then sort into the individual section. 
-//TODO: 1 request for all information
 
 //? title VARCHAR(255),
 //      Title of the folder
