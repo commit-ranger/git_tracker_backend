@@ -1,8 +1,5 @@
 const client = require("../client");
 
-//IMPORTANT 
-// AN ERROR POPS UP WHEN I RUN THE SEED BUT THE TABLE IS MADE AND EVERUTHING WORKS
-// I CANT FIGURE OUT THE PROBLEM SO THIS MIGHT NEVER GET FIXED.
 
 async function build_repo_table() {
   try {

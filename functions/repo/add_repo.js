@@ -1,6 +1,7 @@
 const client = require("../../db/client");
 const create_folder = require("../Folder/add_folder");
 const create_new_file = require("../file/add_file");
+const create_initial_group = require("../groups/add_groups");
 
 // IMPORTANT NOTE
 // WHEN CREATING A USER WE NEED TO LOCATE THE CREATOR ID AND MAKE SURE IT IS A USER THEN ADD THIS REPO_ID TO THE CREATORS_ID
@@ -35,26 +36,18 @@ async function create_repo(title, creator_id) {
           console.log("error creating new repo folder & file function/repo/add_repo.js", error )
         }
 
-
-
     } catch (error) {
       console.log("Error creating main folder function/repo/add_repo.js", error );
     }
+    //! CREATE ADMIN GROUP
+    await create_initial_group(new_repo.rows[0].repo_id, creator_id)
+
+
   } catch (error) {
     console.log("ERROR CREATING NEW REPO function/repo/add_repo.js", error);
   }
 }
 
-// TODO: create group with user in it
-
-//TODO: add group to user.
-
-//TODO: CREATE MAIN FILE
-
-//TODO CREATE BASIC FOLDER AND FILE (to main folder)
-// to have something to pull up in the repo
-
-//TODO: ADD REPO ID TO THE CREATORS PROFILE.
 
 module.exports = create_repo;
 
