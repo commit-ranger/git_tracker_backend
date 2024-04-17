@@ -2,6 +2,8 @@ const client = require("../../db/client");
 const create_folder = require("../Folder/add_folder");
 const create_new_file = require("../file/add_file");
 const {create_initial_group} = require("../groups/add_groups");
+const add_log = require("../log/add_log");
+const { find_user_by_id } = require("../users/find_user");
 const { add_repo_to_user } = require("../users/mod_user");
 
 // IMPORTANT NOTE
@@ -11,7 +13,10 @@ const { add_repo_to_user } = require("../users/mod_user");
 async function create_repo(title, creator_id) {
   
   const allowed_users = [creator_id]
-  
+  const find_creator = await find_user_by_id(creator_id)
+  const username_of_creator = find_creator.username
+
+
   try {
     const new_repo = await client.query(
       `
@@ -21,11 +26,11 @@ async function create_repo(title, creator_id) {
       [title, creator_id, allowed_users]
     );
     try {
+      await add_log(new_repo.rows[0].repo_id, `${username_of_creator}, created Repo`)
       await add_repo_to_user(new_repo.rows[0].repo_id, creator_id)
     } catch (error) {
       console.log("error adding repo to user")
     }
-    console.log("repo created");
     //! CREATE MAIN FOLDER
     try {
       const new_main_folder = await client.query(
@@ -35,12 +40,11 @@ async function create_repo(title, creator_id) {
     RETURNING *;`,
         [new_repo.rows[0].repo_id, "main", true]
       );
-      console.log("main folder created");
 
         //!CREATE FOLDER AND FILE 
         try {
-           await create_folder(new_repo.rows[0].repo_id, new_main_folder.rows[0].folder_id)
-           await create_new_file(new_repo.rows[0].repo_id, new_main_folder.rows[0].folder_id)
+           await create_folder(new_repo.rows[0].repo_id, new_main_folder.rows[0].folder_id, allowed_users[0])
+           await create_new_file(new_repo.rows[0].repo_id, new_main_folder.rows[0].folder_id, allowed_users[0])
         } catch (error) {
           console.log("error creating new repo folder & file function/repo/add_repo.js", error )
         }

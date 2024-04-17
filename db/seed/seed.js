@@ -10,6 +10,7 @@ const build_user_table = require("./users_seed")
 const fill_db_with_folders = require("./filler_data/folder_seed_data")
 const fill_db_with_file = require("./filler_data/file_seed_data")
 const build_group_table = require("./group_seed")
+const build_log_table = require("./log_seed")
 
 
 async function initiate_database(){
@@ -19,6 +20,7 @@ async function initiate_database(){
         await build_folder_table()
         await build_file_table()
         await build_group_table()
+        await build_log_table()
         console.log("finished creating the database")
         await fill_db_with_users()
         await fill_db_with_repos()
