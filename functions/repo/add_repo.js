@@ -1,21 +1,30 @@
 const client = require("../../db/client");
 const create_folder = require("../Folder/add_folder");
 const create_new_file = require("../file/add_file");
-const create_initial_group = require("../groups/add_groups");
+const {create_initial_group} = require("../groups/add_groups");
+const { add_repo_to_user } = require("../users/mod_user");
 
 // IMPORTANT NOTE
 // WHEN CREATING A USER WE NEED TO LOCATE THE CREATOR ID AND MAKE SURE IT IS A USER THEN ADD THIS REPO_ID TO THE CREATORS_ID
 // IMPORTANT NOTE
 
 async function create_repo(title, creator_id) {
+  
+  const allowed_users = [creator_id]
+  
   try {
     const new_repo = await client.query(
       `
-        INSERT INTO repo (title, creator_id)
-        VALUES ($1, $2)
+        INSERT INTO repo (title, creator_id, allowed_user)
+        VALUES ($1, $2, $3)
         RETURNING *;`,
-      [title, creator_id]
+      [title, creator_id, allowed_users]
     );
+    try {
+      await add_repo_to_user(new_repo.rows[0].repo_id, creator_id)
+    } catch (error) {
+      console.log("error adding repo to user")
+    }
     console.log("repo created");
     //! CREATE MAIN FOLDER
     try {

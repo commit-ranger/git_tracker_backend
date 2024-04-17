@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const password_hasher = require("../functions/password_hasher");
 const { find_user_by_id, find_user_by_username, get_all_users } = require("../functions/users/find_user");
 const create_user = require("../functions/users/add_user");
+const { find_repo_connected_to_user } = require("../functions/repo/find_repo");
 
 // TODO: REGISTER USER 
 
@@ -50,10 +51,10 @@ usersRouter.post("/register", async (req, res) => {
   usersRouter.post("/login", async (req, res) => {
     const username_in_question = req.body.username
     const password_in_question = req.body.password
-
+    console.log(req.body)
     try {
        const checked_user = await find_user_by_username(username_in_question)
-      console.log(checked_user)
+      console.log("checked user",checked_user)
       if (checked_user.username == username_in_question &&
         bcrypt.compare(checked_user.password, password_in_question)
         ) {
@@ -89,17 +90,24 @@ usersRouter.post("/register", async (req, res) => {
     }
   })
 
+  //TODO USER PROFILE
+  
+  usersRouter.post("/profile", async (req, res)=> {
+    const user_id = req.body.id
+   const repos = await find_repo_connected_to_user(user_id)
+   const user_info = await find_user_by_id(user_id)
+      res.send([repos, user_info])
+  })
 
   //TODO: PULL ALL USERS
 usersRouter.get("/get_all_users", async (req, res)=> {
   // res.send(get_all_users())
   const all_users = await get_all_users()
     res.send(all_users)
-    
-
-
-
 })
+
+//TODO PULL ALL REPOS ATTACHED TO USER
+
 
 
 module.exports = usersRouter

@@ -27,19 +27,8 @@ async function build_folder_table(){
 
 module.exports = build_folder_table
 
-//? folder_id SERIAL PRIMARY KEY,
-//!     I want this to be a code like nj8d934
-
-//? repo_id TEXT,
-//      Connection to the host repo
-
-
-//? title VARCHAR(255),
-//      Title of the folder
-
-//? description TEXT DEFAULT "enter description here"
-
-
-//? notes TEXT DEFAULT "insert notes here"
-//!         eventual expandability
+//IMPORTANT 
+//TODO ADD A DATAPATH TO FOLDERS 
+// it can be an array that is created when it is formed, by taking the datapath of the parent folder and adding the parent folder. 
+// main can be main. then it has each folder in an array which can be targeted to go back a section.  
 

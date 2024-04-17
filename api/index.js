@@ -1,10 +1,42 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const { find_user_by_username } = require('../functions/users/find_user.js');
+
 
 //TODO: Authorize user 
-// create a req.user object with token and admin status to be pulled from the req element 
-
+  // this creates a req.user object from the token (if present) to be pulled from the req element
+  router.use(async (req, res, next) => {
+    const prefix = "Bearer ";
+    const auth = req.header("Authorization");
+  
+  console.log("token",auth, "is this the token bearer?") 
+  if (!auth) {
+    
+    console.log("no auth")
+    next();
+  } else if (auth.startsWith(prefix)) {
+    const token = auth.slice(prefix.length);
+    console.log("line20", token)
+    try {
+      const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
+        console.log("line 23",verifyToken)
+      if (verifyToken.username) {
+        req.user = await find_user_by_username(verifyToken.username);
+        
+        next();
+      }
+    } catch (error) {
+      console.error("Error authorizing user token",error);
+      next(error);
+    }
+  } else {
+    next({
+      name: "AuthorizationHeaderError",
+      message: `Authorization token must start with ${prefix}`,
+    });
+  }
+});
 
 //TODO: API health check
 router.get('/health', (request, response)=>{

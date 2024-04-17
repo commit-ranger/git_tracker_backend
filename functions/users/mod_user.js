@@ -20,4 +20,22 @@ async function add_groups_to_user(user_id, group_id){
     }
 }
 
-module.exports = {add_groups_to_user}
+async function add_repo_to_user( repo_id, user_id){
+try {
+    const { rows } = await client.query(
+        `
+        UPDATE users
+        SET repo_list = ARRAY_APPEND(repo_list, $1)
+        WHERE user_id = $2
+        `,
+        [repo_id, user_id]
+      );
+      console.log("user modded");
+      return rows;
+
+} catch (error) {
+    console.log("error ading repo to user", error)
+}
+}
+
+module.exports = {add_groups_to_user, add_repo_to_user}
