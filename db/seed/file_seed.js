@@ -6,7 +6,7 @@ async function build_file_table(){
         DROP TABLE IF EXISTS file;
         `)
     } catch (error) {
-        console.log("error dropping repo table db/seed/file_seed.js", error)
+        console.log("error dropping file table db/seed/file_seed.js", error)
     }
     try {
         await client.query(`

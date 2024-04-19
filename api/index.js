@@ -17,7 +17,6 @@ const { find_user_by_username } = require('../functions/users/find_user.js');
     next();
   } else if (auth.startsWith(prefix)) {
     const token = auth.slice(prefix.length);
-    console.log("line20", token)
     try {
       const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
         console.log("line 23",verifyToken)
